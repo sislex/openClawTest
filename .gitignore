@@ -1,0 +1,14 @@
+# OpenClaw config (содержит секреты)
+openclaw-config/
+
+# Рабочие файлы
+openclaw-files/
+
+# Environment
+.env
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/

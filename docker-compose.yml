@@ -1,0 +1,25 @@
+services:
+  node:
+    build: .
+    container_name: openclaw-node
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Moscow
+      - CUSTOM_PORT=3080
+      - CUSTOM_HTTPS_PORT=3443
+    env_file:
+      - .env
+    volumes:
+      - ./openclaw:/app
+      - ./openclaw-files:/openclaw-files
+      - ./openclaw-config:/config
+      - ./openclaw-service/run:/custom-services.d/openclaw
+    ports:
+      - "3000:3000"   # OpenClaw
+      - "3080:3080"   # Desktop (noVNC)
+    shm_size: "1gb"
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+

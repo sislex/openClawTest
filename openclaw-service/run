@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv bash
+
+export PATH="/usr/local/bin:/usr/bin:/bin:$PATH"
+export HOME="/root"
+
+sleep 5
+
+exec openclaw gateway run
+
