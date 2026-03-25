@@ -8,8 +8,8 @@ services:
       - TZ=Europe/Moscow
       - CUSTOM_PORT=3080
       - CUSTOM_HTTPS_PORT=3443
-    env_file:
-      - .env
+#    env_file:
+#      - .env
     volumes:
       - ./openclaw:/app
       - ./openclaw-files:/openclaw-files
