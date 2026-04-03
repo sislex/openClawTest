@@ -19,3 +19,12 @@ RUN npm install -g openclaw
 RUN mkdir -p /config/.openclaw && \
     ln -sf /config/.openclaw /root/.openclaw
 
+# ── docMaker ──────────────────────────────────────────────────────────────────
+# Копируем package.json отдельно для кэширования npm install
+COPY services/docMaker/package.json /services/docMaker/package.json
+
+# Устанавливаем зависимости (включая devDependencies для ts-node и тестов)
+RUN cd /services/docMaker && npm install
+
+# Копируем исходники сервиса
+COPY services/docMaker /services/docMaker
