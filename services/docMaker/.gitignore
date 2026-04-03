@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Generated documents
+output/
+
+# Test coverage
+coverage/
+
+# Temp data files (пример оставляем, реальные данные — нет)
+data.json
+
+# macOS
+.DS_Store
+

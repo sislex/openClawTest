@@ -12,3 +12,11 @@ openclaw-files/
 
 # IDE
 .idea/
+
+# Services
+services/**/node_modules/
+services/**/dist/
+services/**/output/
+services/**/coverage/
+services/**/data.json
+
