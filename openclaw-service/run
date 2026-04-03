@@ -3,7 +3,15 @@
 export PATH="/usr/local/bin:/usr/bin:/bin:$PATH"
 export HOME="/root"
 
+echo "[openclaw] $(date '+%Y-%m-%d %H:%M:%S') — ожидание инициализации контейнера..."
 sleep 5
 
-exec openclaw gateway run
+# Ждём пока /app будет доступен (volume может примонтироваться с задержкой)
+for i in $(seq 1 10); do
+    [ -d "/app" ] && break
+    echo "[openclaw] $(date '+%Y-%m-%d %H:%M:%S') — /app не готов, повтор через 2с ($i/10)..."
+    sleep 2
+done
 
+echo "[openclaw] $(date '+%Y-%m-%d %H:%M:%S') — запуск gateway..."
+exec openclaw gateway run

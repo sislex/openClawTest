@@ -1,5 +1,44 @@
 # Инструкция: сервис docMaker для openclaw
 
+## Автозапуск openclaw gateway
+
+При старте контейнера openclaw gateway запускается **автоматически** — настраивать ничего не нужно.
+
+**Как это работает:**
+
+```
+docker-compose up
+      │
+      └─▶ s6-overlay читает /custom-services.d/openclaw
+                │
+                └─▶ выполняет openclaw-service/run
+                          │
+                          └─▶ exec openclaw gateway run   ← слушает :3000
+```
+
+Файл `openclaw-service/run` смонтирован в контейнер через volume:
+```yaml
+./openclaw-service/run:/custom-services.d/openclaw
+```
+s6-overlay **автоматически перезапускает** gateway если он упал.  
+Docker-уровень (`restart: unless-stopped`) перезапускает весь контейнер при системном рестарте.
+
+**Проверить что gateway запущен:**
+```bash
+docker exec openclaw-node pgrep -a node
+# или
+docker logs openclaw-node 2>&1 | grep -i gateway
+```
+
+**Порты:**
+
+| Сервис              | Порт  | URL                        |
+|---------------------|-------|----------------------------|
+| openclaw gateway    | 3000  | http://localhost:3000      |
+| Desktop (noVNC)     | 3080  | http://localhost:3080      |
+
+---
+
 ## Что умеет сервис
 
 docMaker генерирует готовые `.docx`-документы из шаблона.  
@@ -201,4 +240,3 @@ for (const [i, clientData] of clients.entries()) {
 | Результаты (хост) | `/openclaw-files/`                      | `./openclaw-files/`              |
 
 > Чтобы файл был доступен на хосте — указывайте `--out /openclaw-files/имя_файла.docx`
-
