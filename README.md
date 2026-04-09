@@ -25,7 +25,7 @@ cp .env.example .env
 
 ```dotenv
 # Модель по умолчанию для openclaw
-MODEL=claude-sonnet-4-6
+OPENCLAW_MODEL=anthropic/claude-sonnet-4-6
 
 # Telegram Bot Token — получить у @BotFather в Telegram
 TELEGRAM_BOT_TOKEN=your_telegram_bot_token_here
@@ -63,7 +63,7 @@ docker exec -it openclaw-node openclaw status
 
 | Переменная             | Описание                                      | Где получить                                  |
 |------------------------|-----------------------------------------------|-----------------------------------------------|
-| `MODEL`                | Модель AI по умолчанию                        | Например: `claude-sonnet-4-6`, `phi3:mini`    |
+| `OPENCLAW_MODEL`       | Модель AI по умолчанию                        | `anthropic/claude-sonnet-4-6`, `openai/gpt-5.4` |
 | `TELEGRAM_BOT_TOKEN`   | Токен Telegram-бота                           | [@BotFather](https://t.me/BotFather)          |
 | `ANTHROPIC_API_KEY`    | API ключ Anthropic (Claude)                   | https://console.anthropic.com                 |
 | `CLAUDE_API_KEY`       | Дублирует `ANTHROPIC_API_KEY`                 | https://console.anthropic.com                 |

@@ -20,10 +20,19 @@ OPENCLAW_CONFIG="$OPENCLAW_DIR/openclaw.json"
 if [ ! -f "$OPENCLAW_CONFIG" ]; then
     echo "[openclaw] $(date '+%Y-%m-%d %H:%M:%S') — первый запуск, создание конфигурации..."
     mkdir -p "$OPENCLAW_DIR"
-    cat > "$OPENCLAW_CONFIG" << 'CONF'
+
+    # Модель из .env или дефолт
+    OC_MODEL="${OPENCLAW_MODEL:-anthropic/claude-sonnet-4-6}"
+
+    cat > "$OPENCLAW_CONFIG" << CONF
 {
   "gateway": {
     "mode": "local"
+  },
+  "agents": {
+    "defaults": {
+      "model": "${OC_MODEL}"
+    }
   },
   "channels": {
     "telegram": {
@@ -39,6 +48,10 @@ else
     openclaw config set gateway.mode local 2>/dev/null || true
     openclaw config set channels.telegram.dmPolicy open 2>/dev/null || true
     openclaw config set channels.telegram.allowFrom '["*"]' 2>/dev/null || true
+    # Модель обновляем только если задана в .env
+    if [ -n "$OPENCLAW_MODEL" ]; then
+        openclaw config set agents.defaults.model "$OPENCLAW_MODEL" 2>/dev/null || true
+    fi
 fi
 
 echo "[openclaw] $(date '+%Y-%m-%d %H:%M:%S') — запуск gateway..."
