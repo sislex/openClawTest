@@ -31,11 +31,9 @@ OPENCLAW_MODEL=anthropic/claude-sonnet-4-6
 TELEGRAM_BOT_TOKEN=your_telegram_bot_token_here
 
 # Anthropic / Claude API Key — https://console.anthropic.com
-CLAUDE_API_KEY=sk-ant-...
 ANTHROPIC_API_KEY=sk-ant-...
 
 # Google / Gemini API Key — https://aistudio.google.com/app/apikey
-GEMINI_SEARCH_API_KEY=AIza...
 GOOGLE_API_KEY=AIza...
 
 # OpenAI API Key — https://platform.openai.com/api-keys
@@ -66,9 +64,7 @@ docker exec -it openclaw-node openclaw status
 | `OPENCLAW_MODEL`       | Модель AI по умолчанию                        | `anthropic/claude-sonnet-4-6`, `openai/gpt-5.4` |
 | `TELEGRAM_BOT_TOKEN`   | Токен Telegram-бота                           | [@BotFather](https://t.me/BotFather)          |
 | `ANTHROPIC_API_KEY`    | API ключ Anthropic (Claude)                   | https://console.anthropic.com                 |
-| `CLAUDE_API_KEY`       | Дублирует `ANTHROPIC_API_KEY`                 | https://console.anthropic.com                 |
 | `GOOGLE_API_KEY`       | Google / Gemini API ключ                      | https://aistudio.google.com/app/apikey        |
-| `GEMINI_SEARCH_API_KEY`| Дублирует `GOOGLE_API_KEY`                    | https://aistudio.google.com/app/apikey        |
 | `OPENAI_API_KEY`       | OpenAI API ключ                               | https://platform.openai.com/api-keys          |
 
 ---
