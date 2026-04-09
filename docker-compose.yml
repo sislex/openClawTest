@@ -2,14 +2,14 @@ services:
   node:
     build: .
     container_name: openclaw-node
+    env_file:
+      - .env
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Moscow
       - CUSTOM_PORT=3080
       - CUSTOM_HTTPS_PORT=3443
-#    env_file:
-#      - .env
     volumes:
       - ./openclaw:/app
       - ./openclaw-files:/openclaw-files

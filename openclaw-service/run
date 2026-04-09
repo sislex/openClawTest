@@ -13,5 +13,33 @@ for i in $(seq 1 10); do
     sleep 2
 done
 
+OPENCLAW_DIR="/config/.openclaw"
+OPENCLAW_CONFIG="$OPENCLAW_DIR/openclaw.json"
+
+# Если конфига нет — создаём начальную конфигурацию напрямую
+if [ ! -f "$OPENCLAW_CONFIG" ]; then
+    echo "[openclaw] $(date '+%Y-%m-%d %H:%M:%S') — первый запуск, создание конфигурации..."
+    mkdir -p "$OPENCLAW_DIR"
+    cat > "$OPENCLAW_CONFIG" << 'CONF'
+{
+  "gateway": {
+    "mode": "local"
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "open",
+      "allowFrom": ["*"]
+    }
+  }
+}
+CONF
+else
+    echo "[openclaw] $(date '+%Y-%m-%d %H:%M:%S') — конфигурация найдена, обновляем..."
+    openclaw config set gateway.mode local 2>/dev/null || true
+    openclaw config set channels.telegram.dmPolicy open 2>/dev/null || true
+    openclaw config set channels.telegram.allowFrom '["*"]' 2>/dev/null || true
+fi
+
 echo "[openclaw] $(date '+%Y-%m-%d %H:%M:%S') — запуск gateway..."
 exec openclaw gateway run
